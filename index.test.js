@@ -78,12 +78,49 @@ describe('[Exercise 5] Seasons', () => {
   beforeEach(() => {
     seasons = new utils.Seasons() // each test must start with fresh seasons
   })
-  // test('[9] the FIRST call of seasons.next returns "summer"', () => {})
-  // test('[10] the SECOND call of seasons.next returns "fall"', () => {})
-  // test('[11] the THIRD call of seasons.next returns "winter"', () => {})
-  // test('[12] the FOURTH call of seasons.next returns "spring"', () => {})
-  // test('[13] the FIFTH call of seasons.next returns again "summer"', () => {})
-  // test('[14] the 40th call of seasons.next returns "spring"', () => {})
+  test('[9] the FIRST call of seasons.next returns "summer"', async () => {
+    const expected = "summer";
+    const result = await seasons.next()
+    expect(result).toEqual(expected)
+  })
+  test('[10] the SECOND call of seasons.next returns "fall"', async () => {
+    const expected = "fall";
+    let result = await seasons.next()
+    result = await seasons.next()
+    expect(result).toEqual(expected)
+  })
+  test('[11] the THIRD call of seasons.next returns "winter"', async () => {
+    const expected = "winter";
+    let result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    expect(result).toEqual(expected)
+  })
+  test('[12] the FOURTH call of seasons.next returns "spring"', async () => {
+    const expected = "spring";
+    let result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    expect(result).toEqual(expected)
+  })
+  test('[13] the FIFTH call of seasons.next returns again "summer"', async () => {
+    const expected = "summer";
+    let result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    result = await seasons.next()
+    expect(result).toEqual(expected)
+  })
+  test('[14] the 40th call of seasons.next returns "spring"', async () => {
+    const expected = "spring";
+    let result = await seasons.next()
+    for(let i = 0; i < 39; i++){
+      result = await seasons.next()
+    }
+    expect(result).toEqual(expected)
+  })
 })
 
 describe('[Exercise 6] Car', () => {
