@@ -7,7 +7,7 @@ describe('[Exercise 1] trimProperties', () => {
     const expected = { foo: 'foo', bar: 'bar', baz: 'baz' }
 
     const actual = utils.trimProperties(input)
-    
+
     expect(actual).toEqual(expected)
   })
   test('[2] returns a copy, leaving the original object intact', () => {
@@ -52,9 +52,25 @@ describe('[Exercise 4] Counter', () => {
   beforeEach(() => {
     counter = new utils.Counter(3) // each test must start with a fresh couter
   })
-  // test('[6] the FIRST CALL of counter.countDown returns the initial count', () => {})
-  // test('[7] the SECOND CALL of counter.countDown returns the initial count minus one', () => {})
-  // test('[8] the count eventually reaches zero but does not go below zero', () => {})
+  test('[6] the FIRST CALL of counter.countDown returns the initial count', async () => {
+    const expected = 3;
+    const result = await counter.countDown()
+    expect(result).toEqual(expected)
+  })
+  test('[7] the SECOND CALL of counter.countDown returns the initial count minus one', async () => {
+    const expected = 2;
+    let result = await counter.countDown()
+    result = await counter.countDown()
+    expect(result).toEqual(expected)
+  })
+  test('[8] the count eventually reaches zero but does not go below zero', async () => {
+    const expected = 0;
+    let result = await counter.countDown()
+    while(result > 0) {
+      return result = await counter.countDown()
+    }
+    expect(result).toEqual(expected)
+  })
 })
 
 describe('[Exercise 5] Seasons', () => {

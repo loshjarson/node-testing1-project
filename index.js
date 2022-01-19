@@ -52,8 +52,10 @@ function findLargestInteger(integers) {
     new_int = obj.integer;
     if(new_int > old_int) {
       old_int = new_int
+      console.log(old_int, new_int)
     }
   })
+  return old_int
 }
 
 class Counter {
@@ -62,12 +64,13 @@ class Counter {
    * @param {number} initialNumber - the initial state of the count
    */
   constructor(initialNumber) {
-    // ✨ initialize whatever properties are needed
+    this.initialNumber = initialNumber
+    this.lastnumber = null
   }
 
   /**
    * [Exercise 4B] Counter.prototype.countDown counts down to zero
-   * @returns {number} - the next count, does not go below zero
+   * @returns {number} - Counter.prototype.countDown counts down to zero
    *
    * EXAMPLE
    * const counter = new Counter(3)
@@ -78,7 +81,17 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    if(this.lastnumber === null){
+      this.lastnumber = this.initialNumber
+      return this.initialNumber
+
+    } else if (this.lastnumber === 0) {
+      return this.lastnumber
+
+    } else {
+      this.lastnumber = this.initialNumber - 1
+      return this.lastnumber
+    }
   }
 }
 
