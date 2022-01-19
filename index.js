@@ -139,6 +139,7 @@ class Car {
     this.tank = tankSize // car initiazes full of gas
     this.name = name
     this.mpg = mpg
+    this.tankSize = tankSize
   }
 
   /**
@@ -155,7 +156,17 @@ class Car {
    * focus.drive(200) // returns 600 (ran out of gas after 100 miles)
    */
   drive(distance) {
-    // ✨ implement
+    let gas_usage = distance/this.mpg
+    let driving_distance = distance
+    if (this.tank - gas_usage < 0){
+      let remaining = gas_usage - this.tank
+      driving_distance = (gas_usage-remaining)*this.mpg
+      this.tank = 0
+    } else {
+      this.tank -= gas_usage
+    }
+    this.odometer += driving_distance
+    return this.odometer
   }
 
   /**
@@ -170,7 +181,11 @@ class Car {
    * focus.refuel(99) // returns 600 (tank only holds 20)
    */
   refuel(gallons) {
-    // ✨ implement
+    this.tank += gallons
+    if(this.tank > this.tankSize){
+      this.tank = this.tankSize
+    }
+    return this.tank
   }
 }
 
