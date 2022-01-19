@@ -7,7 +7,15 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const key_list = Object.keys(obj)
+  const output = {}
+
+  key_list.forEach(key => {
+    const trimmed = obj[key].trim()
+    output[key] = trimmed
+  })
+
+  return output
 }
 
 /**
@@ -19,7 +27,14 @@ function trimProperties(obj) {
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
 function trimPropertiesMutation(obj) {
-  // ✨ implement
+  const key_list = Object.keys(obj)
+
+  key_list.forEach(key => {
+    const trimmed = obj[key].trim()
+    obj[key] = trimmed
+  })
+
+  return obj
 }
 
 /**
@@ -31,7 +46,16 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  let old_int = 0;
+  let new_int;
+  integers.forEach(obj => {
+    new_int = obj.integer;
+    if(new_int > old_int) {
+      old_int = new_int
+      console.log(old_int, new_int)
+    }
+  })
+  return old_int
 }
 
 class Counter {
@@ -40,12 +64,13 @@ class Counter {
    * @param {number} initialNumber - the initial state of the count
    */
   constructor(initialNumber) {
-    // ✨ initialize whatever properties are needed
+    this.initialNumber = initialNumber
+    this.lastnumber = null
   }
 
   /**
    * [Exercise 4B] Counter.prototype.countDown counts down to zero
-   * @returns {number} - the next count, does not go below zero
+   * @returns {number} - Counter.prototype.countDown counts down to zero
    *
    * EXAMPLE
    * const counter = new Counter(3)
@@ -56,7 +81,17 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    if(this.lastnumber === null){
+      this.lastnumber = this.initialNumber
+      return this.initialNumber
+
+    } else if (this.lastnumber === 0) {
+      return this.lastnumber
+
+    } else {
+      this.lastnumber = this.initialNumber - 1
+      return this.lastnumber
+    }
   }
 }
 
@@ -65,6 +100,8 @@ class Seasons {
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
+    this.seasons = ["summer","fall","winter","spring"]
+    this.counter = 0
     // ✨ initialize whatever properties are needed
   }
 
@@ -81,7 +118,12 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
-    // ✨ implement
+    if (this.counter === 4){
+      this.counter = 0
+    }
+    const output = this.seasons[this.counter]
+    this.counter += 1
+    return output
   }
 }
 
@@ -95,7 +137,9 @@ class Car {
   constructor(name, tankSize, mpg) {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
-    // ✨ initialize whatever other properties are needed
+    this.name = name
+    this.mpg = mpg
+    this.tankSize = tankSize
   }
 
   /**
@@ -112,7 +156,17 @@ class Car {
    * focus.drive(200) // returns 600 (ran out of gas after 100 miles)
    */
   drive(distance) {
-    // ✨ implement
+    let gas_usage = distance/this.mpg
+    let driving_distance = distance
+    if (this.tank - gas_usage < 0){
+      let remaining = gas_usage - this.tank
+      driving_distance = (gas_usage-remaining)*this.mpg
+      this.tank = 0
+    } else {
+      this.tank -= gas_usage
+    }
+    this.odometer += driving_distance
+    return this.odometer
   }
 
   /**
@@ -127,7 +181,11 @@ class Car {
    * focus.refuel(99) // returns 600 (tank only holds 20)
    */
   refuel(gallons) {
-    // ✨ implement
+    this.tank += gallons
+    if(this.tank > this.tankSize){
+      this.tank = this.tankSize
+    }
+    return this.tank
   }
 }
 
@@ -145,7 +203,11 @@ class Car {
  * })
  */
 function isEvenNumberAsync(number) {
-  // ✨ implement
+  if(number % 2 === 0){
+    return Promise.resolve(true)
+  } else {
+    return Promise.resolve(false)
+  }
 }
 
 module.exports = {
